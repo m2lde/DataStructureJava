@@ -17,30 +17,37 @@ public class ArrayStack<E> implements Stack<E> {
     public ArrayStack() {
         this(CAPACITY);
     }
-    public ArrayStack(int cap) {
+    
+    @SuppressWarnings("unchecked")
+	public ArrayStack(int cap) {
         capacity = cap;
         S = (E[]) new Object[capacity];
     }
+    
     @Override
     public int size() {
         return (top + 1);
     }
+    
     @Override
     public boolean isEmpty() {
         return(top < 0);
     }
+    
     @Override
     public void push(E element) throws FullStackException {
         if(size() == capacity)
             throw new FullStackException("Stack is full");
         S[++top] = element;
     }
+    
     @Override
     public E top() throws EmptyStackException {
         if(isEmpty())
             throw new EmptyStackException("Stack is empty");
         return S[top];
     }
+    
     @Override
     public E pop() throws EmptyStackException {
         E element;

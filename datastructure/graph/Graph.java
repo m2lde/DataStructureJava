@@ -34,7 +34,7 @@ public interface Graph<V, E> {
 	public Collection<Edge<E>> incidentEdges(Vertex<V> v);
 	
 	/**
-	 * 
+	 * S
 	 * @return the final node of edge separated from the node v.
 	 */
 	public Vertex<V> opposite(Vertex<V> v, Edge<E> e);

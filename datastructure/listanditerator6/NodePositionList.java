@@ -46,14 +46,14 @@ public class NodePositionList<E> implements PositionList<E>{
     @Override
     public Position<E> first() throws EmptyListException {
         if(isEmpty())
-            throw new EmptyListException("A lista esta vazia.");
+            throw new EmptyListException("The list is empty.");
         return this.header.getNext();
     }
 
     @Override
     public Position<E> last() throws EmptyListException{
         if(isEmpty())
-            throw new EmptyListException("A lista esta vazia.");
+            throw new EmptyListException("The list is empty.");
         return this.trailer.getPrev();
     }
 

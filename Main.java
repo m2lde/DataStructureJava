@@ -15,7 +15,7 @@ public class Main {
 		List<Integer> l = new ArrayList<>();
 		LinkedList<Integer> linked = new LinkedList<>();
 		Map<Integer, String> map = new HashMap<>();
-		String[] s = {"Murilo", "Moreira"};
+		String[] s = {"Teste1", "Test2"};
 		List<String> list = new ArrayList<>();
 		list.add(s[0]); list.add(s[1]);
 				

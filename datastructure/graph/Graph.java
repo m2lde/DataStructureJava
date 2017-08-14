@@ -16,9 +16,9 @@ import datastructure.graph.edgelist.Vertex;
  */
 public interface Graph<V, E> {
 	
-	public Iterator<Vertex<V, E>> vertices();
-	public Iterator<Edge<E, V>> edges();
-	public Iterator<Edge<E, V>> incidentEdges(Vertex<V, E> v);
+	public Iterable<Vertex<V, E>> vertices();
+	public Iterable<Edge<E, V>> edges();
+	public Iterable<Edge<E, V>> incidentEdges(Vertex<V, E> v);
 	public Vertex<V, E> opposite(Vertex<V, E> v, Edge<E, V> e) throws Exception;
 	public Vertex<V, E>[] endVertices(Edge<E, V> e) throws Exception;
 	public boolean areAdjacent(Vertex<V, E> v, Vertex<V, E> w);

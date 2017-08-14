@@ -16,17 +16,17 @@ public class GraphEdge<V, E> implements Graph<V, E> {
 	}
 	
 	@Override
-	public Iterator<Vertex<V, E>> vertices() {
-		return this.edgeMap.get(null).iterator();
+	public Iterable<Vertex<V, E>> vertices() {
+		return this.edgeMap.get(null);
 	}
 
 	@Override
-	public Iterator<Edge<E, V>> edges() {
-		return this.edgeMap.keySet().iterator();
+	public Iterable<Edge<E, V>> edges() {
+		return this.edgeMap.keySet();
 	}
 
 	@Override
-	public Iterator<Edge<E, V>> incidentEdges(Vertex<V, E> v) {
+	public Iterable<Edge<E, V>> incidentEdges(Vertex<V, E> v) {
 		return v.incidentList();
 	}
 
@@ -54,9 +54,10 @@ public class GraphEdge<V, E> implements Graph<V, E> {
 				return true;
 		return false;
 	}
-
+	
 	@Override
 	public void replace(Vertex<V, E> v, V x) {
+		
 	}
 
 	@Override
@@ -85,3 +86,5 @@ public class GraphEdge<V, E> implements Graph<V, E> {
 	}
 		
 }
+
+

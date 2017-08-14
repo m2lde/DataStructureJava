@@ -6,6 +6,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 public class Vertex<V, E> {
+	
 	private V element;
 	private List<Edge<E, V>> incident = new LinkedList<>();
 	
@@ -13,7 +14,7 @@ public class Vertex<V, E> {
 	
 	public boolean isAlone() {return this.incident.isEmpty();}
 	
-	public Iterator<Edge<E, V>> incidentList() {return this.incidentList();}
+	public Iterable<Edge<E, V>> incidentList() {return this.incident;}
 	
 	public V getElement() {return element;}
 	

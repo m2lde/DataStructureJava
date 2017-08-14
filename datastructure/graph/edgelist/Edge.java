@@ -1,23 +1,17 @@
 package datastructure.graph.edgelist;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @SuppressWarnings("unused")
 public class Edge<E, V>{
 	private E element;
-	private Vertex<V, E> v, w;
+	private Vertex<V, E>[] vertices;
 	
+	@SuppressWarnings("unchecked")
 	public Edge(E element, Vertex<V, E> v, Vertex<V, E> w) {
-
 		this.element = element;
-		this.v = v;
-		this.w = w;
+		this.vertices = (Vertex<V, E>[]) new Vertex[]{v,w};
 	}
+	
+	public Vertex<V, E>[] getVertices() {return this.vertices;}
 
-
-
-	public void setElement(E element) {
-		this.element = element;
-	}
+	public void setElement(E element) {this.element = element;}
 }

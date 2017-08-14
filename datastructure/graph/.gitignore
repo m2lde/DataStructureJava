@@ -3,3 +3,7 @@
 /Arc.class
 /Edge.class
 /Position.class
+/GraphEdgeArray.class
+/GraphEdgeNode.class
+/Element.class
+/GraphAdMatrix.class

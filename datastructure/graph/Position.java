@@ -7,6 +7,7 @@ package datastructure.graph;
  */
 @FunctionalInterface
 public interface Position<E> {
+	
     /**
      * 
      * @return elemento armazenado nesta posicao

@@ -14,6 +14,7 @@ public class ArrayStack<E> implements Stack<E> {
     public static final int CAPACITY = 1000;
     protected E S[];
     protected int top = -1;
+    
     public ArrayStack() {
         this(CAPACITY);
     }

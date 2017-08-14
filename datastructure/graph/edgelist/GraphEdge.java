@@ -74,7 +74,6 @@ public class GraphEdge<V, E> implements Graph<V, E> {
 
 	@Override
 	public Edge<E, V> insertEdge(Vertex<V, E> v, Vertex<V, E> w, E x) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -57,18 +57,15 @@ public class GraphEdge<V, E> implements Graph<V, E> {
 
 	@Override
 	public void replace(Vertex<V, E> v, V x) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void replace(Edge<E, V> e, E x) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public Vertex<V, E> insertVertex(V x) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -79,13 +76,11 @@ public class GraphEdge<V, E> implements Graph<V, E> {
 
 	@Override
 	public V removeVertex(Vertex<V, E> v) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public E removeEdge(Edge<E, V> e) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 		

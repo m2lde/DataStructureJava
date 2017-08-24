@@ -1,4 +1,4 @@
-package datastructure.listanditerator6;
+package datastructure.listanditerator;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -24,8 +24,8 @@ public class ElementIterator<E> implements Iterator<E>{
     public E next() throws NoSuchElementException {
         if(this.cursor == null)
             throw new NoSuchElementException("No next element.");
-        E toReturn = this.cursor.element();
-        this.cursor = (this.cursor == this.list.last()) ? null : this.list.next(this.cursor);
+        E toReturn = this.cursor.getElement();
+        this.cursor = (this.cursor == this.list.last()) ? null : this.list.after(this.cursor);
         return toReturn;
     }
 }

@@ -8,3 +8,8 @@
 /Position.class
 /PositionList.class
 /Sequence.class
+/LinkedPositionList.class
+/LinkedPositionList$Node.class
+/LinkedPositionList$PositionIterator.class
+/LinkedPositionList$PositionIterable.class
+/LinkedPositionList$ElementIterator.class

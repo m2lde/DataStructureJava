@@ -1,4 +1,4 @@
-package datastructure.listanditerator6;
+package datastructure.listanditerator;
 
 import datastructure.exceptions.InvalidPositionException;
 
@@ -32,7 +32,7 @@ public class DNode<E> implements Position<E>{
     public void setElement(E element) {this.element = element;}
 
     @Override
-    public E element() 
+    public E getElement() 
             throws InvalidPositionException {
         if((this.prev == null) && (this.next == null))
             throw new InvalidPositionException("Posicao invalida");

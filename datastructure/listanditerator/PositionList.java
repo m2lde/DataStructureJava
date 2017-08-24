@@ -1,8 +1,4 @@
-package datastructure.listanditerator6;
-
-import datastructure.exceptions.EmptyListException;
-import datastructure.exceptions.BoundaryViolationException;
-import datastructure.exceptions.InvalidPositionException;
+package datastructure.listanditerator;
 
 /**
  * @author mrl00
@@ -11,37 +7,35 @@ import datastructure.exceptions.InvalidPositionException;
 public interface PositionList<E> extends Iterable<E>{
     /**
      * 
-     * @return numero de elementos da lista
+     * @return number of elements in the list.
      */
     public int size();
     
     /**
      * 
-     * @return quando a lista esta vazia
+     * @return when the list is empty.
      */
     public boolean isEmpty();
     /**
      * 
-     * @return Retona o primeiro nodo da lista 
+     * @return the first element of list. 
      */
-    public Position<E> first() throws EmptyListException;
+    public Position<E> first();
     
     /**
      * 
-     * @return Retorna o ultimo nodo da lista
+     * @return the last element of list.
      */
-    public Position<E> last() throws EmptyListException;
+    public Position<E> last();
     
     /**
      * 
      * @param p
-     * @return um nodo que segue um determinado nodo da lista,
-     * retorna um erro se for o ultimo da lista
-     * @throws InvalidPositionException
-     * @throws BoundaryViolationException 
+     * @return a node that follow a determined node of list,
+     * return an error if that node is last of list.
      */
-    public Position<E> next(Position<E> p)
-            throws InvalidPositionException, BoundaryViolationException;
+    public Position<E> after(Position<E> p)
+    		throws IllegalArgumentException;
     
     /**
      * @param p
@@ -50,22 +44,21 @@ public interface PositionList<E> extends Iterable<E>{
      * @throws InvalidPositionException
      * @throws BoundaryViolationException 
      */
-    public Position<E> prev(Position<E> p)
-            throws InvalidPositionException, BoundaryViolationException;
+    public Position<E> before(Position<E> p)
+            throws IllegalArgumentException;
     
     /**
-     * Adiciona um elemento e no inicio da lista.
-     * 
+     * Add a element in begin of list.
      * @param e 
      */
-    public void addFirst(E e);
+    public Position<E> addFirst(E e);
     
     /**
      * Adiciona um elemento "e" no fim da lista.
      * 
      * @param e
      */
-    public void addLast(E e);
+    public Position<E> addLast(E e);
     
     /**
      * Adiciona um elemento e depois de uma posicao p.
@@ -73,7 +66,8 @@ public interface PositionList<E> extends Iterable<E>{
      * @param p
      * @param e 
      */
-    public void addAfter(Position<E> p, E e);
+    public Position<E> addAfter(Position<E> p, E e)
+    		throws IllegalArgumentException;
     
     /**
      * Adiciona um elemento e antes da posicao p.
@@ -81,7 +75,8 @@ public interface PositionList<E> extends Iterable<E>{
      * @param p
      * @param e 
      */
-    public void addBefore(Position<E> p, E e);
+    public Position<E> addBefore(Position<E> p, E e)
+    		throws IllegalArgumentException;
     
     /**
      * Remove um nodo p retornando o elemento que la estava.
@@ -91,7 +86,7 @@ public interface PositionList<E> extends Iterable<E>{
      * @throws InvalidPositionException 
      */
     public E remove(Position<E> p)
-            throws InvalidPositionException;
+            throws IllegalArgumentException;
     
     /**
      * Substitui um elemento armazenado em um determinado nodo,
@@ -103,7 +98,7 @@ public interface PositionList<E> extends Iterable<E>{
      * @throws InvalidPositionException 
      */
     public E set(Position<E> p, E e)
-            throws InvalidPositionException;
+            throws IllegalArgumentException;
     
     public Iterable<Position<E>> positions();
     

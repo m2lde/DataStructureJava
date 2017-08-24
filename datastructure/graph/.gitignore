@@ -7,3 +7,9 @@
 /GraphEdgeNode.class
 /Element.class
 /GraphAdMatrix.class
+/AdjMatrixGraph$InnerEdge.class
+/AdjMatrixGraph$InnerVertex.class
+/AdjMatrixGraph.class
+/EdgeListGraph$InnerEdge.class
+/EdgeListGraph$InnerVertex.class
+/EdgeListGraph.class

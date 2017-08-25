@@ -96,6 +96,7 @@ public class LinkedPositionList<E> implements PositionList<E>{
 	private Node<E> header, trailer;
 	private int size = 0;
 	
+	//Constructor
 	public LinkedPositionList() {
 		header = new Node<>(null, null, null);
 		trailer = new Node<>(null, header, null);

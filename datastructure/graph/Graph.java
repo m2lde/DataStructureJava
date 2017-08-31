@@ -1,5 +1,12 @@
 package datastructure.graph;
 
+/**
+ * 
+ * @author m2l
+ *
+ * @param <V>
+ * @param <E>
+ */
 public interface Graph<V, E> {
 	
 	/**
@@ -40,6 +47,7 @@ public interface Graph<V, E> {
 	public Vertex<V>[] endVertices(Edge<E> e);
 	
 	/**
+	 * 
 	 * @param v
 	 * @param e
 	 * @return For edge e incident to vertex v, returns the other vertex of

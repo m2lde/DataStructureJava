@@ -13,3 +13,12 @@
 /EdgeListGraph$InnerEdge.class
 /EdgeListGraph$InnerVertex.class
 /EdgeListGraph.class
+/AdjacencyMapGraph$InnerEdge.class
+/AdjacencyMapGraph$InnerVertex.class
+/AdjacencyMapGraph.class
+/AdjListGraph$InnerEdge.class
+/AdjListGraph$InnerVertex.class
+/AdjListGraph.class
+/AdjacencyListGraph$InnerEdge.class
+/AdjacencyListGraph$InnerVertex.class
+/AdjacencyListGraph.class

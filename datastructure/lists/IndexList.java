@@ -1,25 +1,41 @@
-package datastructure.listanditerator;
+package datastructure.lists;
 
 /**
  *
  * @author mrl00
  * @param <E>
  */
-public interface IndexList<E> {
+public interface IndexList<E> extends Iterable<E>, Cloneable {
     /**
      *  
-     * @return o numero de elementos nesta lista.
+     * @return the number of elements on list.
      */
     public int size();
     
     /**
      *  
-     * @return se a lista esta vazia.
+     * @return true if the list is empty, false otherwise.
      */
     public boolean isEmpty();
     
     /**
-     * Insere um elemento e de maneira que ele ocupe o indice i, deslocando todos os elementos depois deste.
+     * 
+     * @param index
+     * @return the element (does not remove) at index i .
+     * @throws IndexOutOfBoundsException 
+     */
+    public E get(int index) throws IndexOutOfBoundsException;
+    
+    /**
+     * 
+     * @param index
+     * @param element
+     * @return
+     * @throws IndexOutOfBoundsException 
+     */
+    public E set(int index, E element) throws IndexOutOfBoundsException;
+    
+    /**
      * @param indx
      * @param element
      * @throws IndexOutOfBoundsException 
@@ -27,27 +43,12 @@ public interface IndexList<E> {
     public void add(int indx, E element) throws IndexOutOfBoundsException;
     
     /**
-     * 
-     * @param index
-     * @return o elemento no indice i sem remove-lo
-     * @throws IndexOutOfBoundsException 
-     */
-    public E get(int index) throws IndexOutOfBoundsException;
-    
-    /**
      *  
      * @param index
-     * @return retorna o elemento no indice i, deslocando os elementos apos este.
+     * @return and remove the element at index i.
      * @throws IndexOutOfBoundsException 
      */
     public E remove(int index) throws IndexOutOfBoundsException;
     
-    /**
-     * Substitui o elemento no indice i por e, retornando o elemento anterior em i.
-     * @param index
-     * @param element
-     * @return
-     * @throws IndexOutOfBoundsException 
-     */
-    public E set(int index, E element) throws IndexOutOfBoundsException;
+    
 }

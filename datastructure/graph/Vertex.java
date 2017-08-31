@@ -1,14 +1,16 @@
 package datastructure.graph;
 
-import datastructure.listanditerator.Position;
+import datastructure.lists.Position;
 
 public interface Vertex<V> extends Position<V>{
 	
-	public boolean validate(Graph<V, ?> graph);
+	boolean validate(Graph<V, ?> graph);
 
-	public void setElement(V v);
+	void setElement(V v);
 
-	public Position<Vertex<V>> getPosition();
+	Position<Vertex<V>> getPosition();
 	
-	public void setPosition(Position<Vertex<V>> pos);
+	void setPosition(Position<Vertex<V>> pos);
+	
+	
 }

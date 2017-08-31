@@ -1,4 +1,4 @@
-package datastructure.listanditerator;
+package datastructure.lists;
 
 /**
  *

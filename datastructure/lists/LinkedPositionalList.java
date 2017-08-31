@@ -1,10 +1,10 @@
-package datastructure.listanditerator;
+package datastructure.lists;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class LinkedPositionList<E> implements PositionList<E>{
+public class LinkedPositionalList<E> implements PositionalList<E>{
 	
 	//Private Classes
 	private static class Node<E> implements Position<E> {
@@ -68,7 +68,7 @@ public class LinkedPositionList<E> implements PositionList<E>{
 		public void remove() throws IllegalStateException{
 			if(recent == null) 
 				throw new IllegalStateException("Nothing to remove.");
-			LinkedPositionList.this.remove(recent);
+			LinkedPositionalList.this.remove(recent);
 			recent = null;
 		}
 		
@@ -96,7 +96,7 @@ public class LinkedPositionList<E> implements PositionList<E>{
 	private Node<E> header, trailer;
 	private int size = 0;
 	
-	public LinkedPositionList() {
+	public LinkedPositionalList() {
 		header = new Node<>(null, null, null);
 		trailer = new Node<>(null, header, null);
 		header.setNext(trailer);
@@ -199,6 +199,7 @@ public class LinkedPositionList<E> implements PositionList<E>{
 		Node<E> node 		= validate(p),
 				predecessor	= node.getPrev(),
 				successor	= node.getNext();
+		
 		predecessor.setNext(successor);
 		successor.setPrev(predecessor);
 		this.size--;

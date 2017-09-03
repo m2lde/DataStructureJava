@@ -56,21 +56,23 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		@Override
 		public void setElement(V v) {this.element = v;}
 		
-		public PositionalList<Edge<E>> getIncomingEdges() {return incoming;}
+		public PositionalList<Edge<E>> getIncomingEdges() {return this.incoming;}
 		
-		public PositionalList<Edge<E>> getOutgoingEdges() {return outgoing;}
+		public PositionalList<Edge<E>> getOutgoingEdges() {return this.outgoing;}
 	}
 
 	@SuppressWarnings("hiding")
 	private class InnerEdge<E> implements Edge<E> {
 		private E element;
 		private Position<Edge<E>> position, start, end;
-		private Vertex<V>[] endPoints;
-		
+		//private Vertex<V>[] endPoints;
 		@SuppressWarnings("unchecked")
+		private Vertex<V>[] endPoints = new Vertex[2];
+		
 		public InnerEdge(Vertex<V> u, Vertex<V> v, E e) {
 			this.element = e;
-			this.endPoints = (Vertex<V>[]) new Vertex[]{u,v};	
+			//this.endPoints = (Vertex<V>[]) new Vertex[]{u,v};
+			this.endPoints[0] = u;this.endPoints[1] = v;
 		}
 		
 		@Override
@@ -98,12 +100,20 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 
 		public void setEndPosition(Position<Edge<E>> end) {this.end = end;}
 		
+		@Override
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append("Edge: " + this.element);
+			sb.append(String.format(" (%s, %s)", this.endPoints[0].getElement(), this.endPoints[1].getElement()));
+			return sb.toString();
+		}
+		
 	}
 	
 	//Private utilities.
 	private InnerEdge<E> validate(Edge<E> e) {
 		if(e == null)
-			throw new IllegalArgumentException("Null edge or this edge does not exists.");
+			throw new IllegalArgumentException("This edge does not exists.");
 		if(!(e instanceof InnerEdge)) 
 			throw new IllegalArgumentException("Invalid Edge.");
 		InnerEdge<E> edge = (InnerEdge<E>) e;
@@ -113,6 +123,8 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	}
 	
 	private InnerVertex<V> validate(Vertex<V> v) {
+		if(v == null)
+			throw new IllegalArgumentException("This vertex does not exists.");
 		if(!(v instanceof InnerVertex))
 			throw new IllegalArgumentException("Invalid vertex.");
 		InnerVertex<V> vertex = (InnerVertex<V>) v;
@@ -145,7 +157,7 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 			if((vertex[1] == v2 || vertex[0] == v2) && !this.isDirected) 
 				return edge;
 		}
-		return null; 
+		return null;
 	}
 	
 	@Override
@@ -182,7 +194,7 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	
 	@Override
 	public Iterable<Edge<E>> outgoingEdges(Vertex<V> v) {
-		return validate(v).getIncomingEdges();
+		return validate(v).getOutgoingEdges();
 	}
 	
 	@Override
@@ -204,8 +216,8 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	@Override
 	public Edge<E> insertEdge(Vertex<V> u, Vertex<V> v, E e) throws IllegalArgumentException {
 		if(this.getEdge(u, v) == null) {
+			InnerEdge<E> newEdge = new InnerEdge<>(u ,v ,e);
 			InnerVertex<V> orign = validate(u), dest = validate(v);
-			InnerEdge<E> newEdge = new InnerEdge<>(orign ,dest ,e);
 			newEdge.setPosition(this.edgeList.addLast(newEdge));
 			newEdge.setStartPosition(orign.getOutgoingEdges().addLast(newEdge));
 			if(orign != dest) newEdge.setEndPosition(dest.getIncomingEdges().addLast(newEdge));;
@@ -227,31 +239,40 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	@Override
 	public void removeEdge(Edge<E> e) {
 		InnerEdge<E> edge = validate(e);
-		
 		InnerVertex<V> v0 = validate(edge.endPoints[0]), 
 					   v1 = validate(edge.endPoints[1]);
 		
 		v0.getOutgoingEdges().remove(edge.getStartPosition());
-		if(v0 != v1)v1.getIncomingEdges().remove(edge.getEndPosition());
+		
+		if(v0 != v1)
+			v1.getIncomingEdges().remove(edge.getEndPosition());
 		
 		this.edgeList.remove(edge.getPosition());
+	}
+	
+	public void FuncTmp(Vertex<V> v) {
+		//InnerVertex<V> vertex = validate(v);
+		System.out.println("Vertex::: " + v.getElement());
+		for (Edge<E> edge : this.outgoingEdges(v)) 
+			System.out.println(edge.toString());
+		
 	}
 	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (Vertex<V> v : vertices()) {
+		for (Vertex<V> v : this.vertices()) {
 		      sb.append("Vertex " + v.getElement() + "\n");
 		      if (isDirected)
 		        sb.append(" [outgoing]");
-		      sb.append(" " + outDegree(v) + " adjacencies:");
-		      for (Edge<E> e: outgoingEdges(v))
+		      sb.append(" " + this.outDegree(v) + " adjacencies:");
+		      for (Edge<E> e: this.outgoingEdges(v))
 		        sb.append(String.format(" (%s, %s)", opposite(v,e).getElement(), e.getElement()));
 		      sb.append("\n");
 		      if (isDirected) {
 		        sb.append(" [incoming]");
-		        sb.append(" " + inDegree(v) + " adjacencies:");
-		        for (Edge<E> e: incomingEdges(v))
+		        sb.append(" " + this.inDegree(v) + " adjacencies:");
+		        for (Edge<E> e: this.incomingEdges(v))
 		          sb.append(String.format(" (%s, %s)", opposite(v,e).getElement(), e.getElement()));
 		        sb.append("\n");
 		      }

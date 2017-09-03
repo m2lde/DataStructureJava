@@ -5,9 +5,12 @@ import datastructure.lists.Position;
 import datastructure.lists.PositionalList;
 
 /**
+ * An implementation for a graph structure using an adjacency list for each vertex.
+ *  
+ * Every vertex stores an element of type V.
+ * Every edge stores an element of type E.
  * 
- * @author m2l
- *
+ * @author Murilo M Lacerda
  * @param <V>
  * @param <E>
  */
@@ -38,7 +41,6 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 				this.incoming = new LinkedPositionalList<>();
 		}
 		
-		@Override
 		public boolean validate(Graph<V, ?> graph) {
 			return (AdjacencyListGraph.this == graph && position != null);
 		}
@@ -47,15 +49,10 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		public V getElement() 
 				throws IllegalStateException {return this.element;}
 		
-		@Override
 		public void setPosition(Position<Vertex<V>> pos) {this.position = pos;}
 		
-		@Override
 		public Position<Vertex<V>> getPosition() {return this.position;}
-		
-		@Override
-		public void setElement(V v) {this.element = v;}
-		
+				
 		public PositionalList<Edge<E>> getIncomingEdges() {return this.incoming;}
 		
 		public PositionalList<Edge<E>> getOutgoingEdges() {return this.outgoing;}
@@ -75,7 +72,6 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 			this.endPoints[0] = u;this.endPoints[1] = v;
 		}
 		
-		@Override
 		public boolean validate(Graph<?, E> graph) {
 			return (AdjacencyListGraph.this == graph && position != null);
 		}
@@ -83,13 +79,10 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		@Override
 		public E getElement() throws IllegalStateException {return this.element;}
 				
-		@Override
 		public Vertex<V>[] getEndPoints() {return this.endPoints;}
 		
-		@Override
 		public Position<Edge<E>> getPosition() {return this.position;}
 		
-		@Override
 		public void setPosition(Position<Edge<E>> p) {this.position = p;}
 		
 		public Position<Edge<E>> getStartPosition() {return this.start;}
@@ -148,10 +141,13 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	
 	@Override
 	public Edge<E> getEdge(Vertex<V> v, Vertex<V> w) throws IllegalArgumentException {
+		//Validating the vertices.
 		InnerVertex<V> v1 = validate(v), v2 = validate(w);
+		//Traversing the adjacency list of vertex v.
 		for (Edge<E> e : v1.getOutgoingEdges()) {
 			InnerEdge<E> edge = validate(e);
 			Vertex<V>[] vertex =  edge.getEndPoints();
+			//If 
 			if(vertex[1] == v2 && this.isDirected) 
 				return edge;
 			if((vertex[1] == v2 || vertex[0] == v2) && !this.isDirected) 
@@ -216,9 +212,13 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	@Override
 	public Edge<E> insertEdge(Vertex<V> u, Vertex<V> v, E e) throws IllegalArgumentException {
 		if(this.getEdge(u, v) == null) {
+			//Creating a new edge starting in v and ending in v with an element e.
 			InnerEdge<E> newEdge = new InnerEdge<>(u ,v ,e);
+			//Validating the vertices u and v.
 			InnerVertex<V> orign = validate(u), dest = validate(v);
+			//Adding the new edge to edge list from graph and setting its position from graph's edge list.
 			newEdge.setPosition(this.edgeList.addLast(newEdge));
+			//
 			newEdge.setStartPosition(orign.getOutgoingEdges().addLast(newEdge));
 			if(orign != dest) newEdge.setEndPosition(dest.getIncomingEdges().addLast(newEdge));;
 			return newEdge;
@@ -231,8 +231,9 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		InnerVertex<V> vertex = validate(v);
 		for (Edge<E> edge : vertex.outgoing)
 			removeEdge(edge);
-		for (Edge<E> edge : vertex.incoming)
-			removeEdge(edge);
+		if(this.isDirected)
+			for (Edge<E> edge : vertex.incoming)
+				removeEdge(edge);
 		this.vertexList.remove(vertex.getPosition());
 	}
 	
@@ -251,7 +252,6 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	}
 	
 	public void FuncTmp(Vertex<V> v) {
-		//InnerVertex<V> vertex = validate(v);
 		System.out.println("Vertex::: " + v.getElement());
 		for (Edge<E> edge : this.outgoingEdges(v)) 
 			System.out.println(edge.toString());

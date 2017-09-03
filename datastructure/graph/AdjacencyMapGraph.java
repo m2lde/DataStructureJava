@@ -117,18 +117,16 @@ public class AdjacencyMapGraph<V,E> implements Graph<V,E> {
    * the second is the destination.  If the graph is undirected, the
    * order is arbitrary.
    */
-  @SuppressWarnings("unchecked")
 public Vertex<V>[] endVertices(Edge<E> e) throws IllegalArgumentException {
     InnerEdge<E> edge = validate(e);
-    return (Vertex<V>[]) edge.getEndPoints();
+    return edge.getEndPoints();
   }
 
   /** Returns the vertex that is opposite vertex v on edge e. */
-  @SuppressWarnings("unchecked")
 public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
                                                throws IllegalArgumentException {
     InnerEdge<E> edge = validate(e);
-    Vertex<V>[] endpoints = (Vertex<V>[]) edge.getEndPoints();
+    Vertex<V>[] endpoints = edge.getEndPoints();
     if (endpoints[0] == v)
       return endpoints[1];
     else if (endpoints[1] == v)
@@ -175,7 +173,6 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     vert.setPosition(null);             // invalidates the vertex
   }
 
-  @SuppressWarnings({"unchecked"})
   /** Removes an edge from the graph. */
   public void removeEdge(Edge<E> e) throws IllegalArgumentException {
     InnerEdge<E> edge = validate(e);
@@ -193,7 +190,6 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     edge.setPosition(null);             // invalidates the edge
   }
 
-  @SuppressWarnings({"unchecked"})
   private InnerVertex<V> validate(Vertex<V> v) {
     if (!(v instanceof InnerVertex)) throw new IllegalArgumentException("Invalid vertex");
     InnerVertex<V> vert = (InnerVertex<V>) v;     // safe cast
@@ -201,7 +197,6 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     return vert;
   }
 
-  @SuppressWarnings({"unchecked"})
   private InnerEdge<E> validate(Edge<E> e) {
     if (!(e instanceof InnerEdge)) throw new IllegalArgumentException("Invalid edge");
     InnerEdge<E> edge = (InnerEdge<E>) e;     // safe cast
@@ -211,7 +206,8 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
 
   //---------------- nested Vertex class ----------------
   /** A vertex of an adjacency map graph representation. */
-  private class InnerVertex<V> implements Vertex<V> {
+  @SuppressWarnings("hiding")
+private class InnerVertex<V> implements Vertex<V> {
     private V element;
     private Position<Vertex<V>> pos;
     private Map<Vertex<V>, Edge<E>> outgoing, incoming;
@@ -227,7 +223,6 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     }
 
     /** Validates that this vertex instance belongs to the given graph. */
-    @Override
     public boolean validate(Graph<V,?> graph) {
       return (AdjacencyMapGraph.this == graph && pos != null);
     }
@@ -247,13 +242,12 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     /** Returns reference to the underlying map of incoming edges. */
     public Map<Vertex<V>, Edge<E>> getIncoming() { return incoming; }
 
-	@Override
-	public void setElement(V v) {}
   } //------------ end of InnerVertex class ------------
 
   //---------------- nested InnerEdge class ----------------
   /** An edge between two vertices. */
-  private class InnerEdge<E> implements Edge<E> {
+  @SuppressWarnings("hiding")
+private class InnerEdge<E> implements Edge<E> {
     private E element;
     private Position<Edge<E>> pos;
     private Vertex<V>[] endpoints;
@@ -269,7 +263,6 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     public E getElement() { return element; }
 
     /** Validates that this edge instance belongs to the given graph. */
-    @Override
     public boolean validate(Graph<?,E> graph) {
       return AdjacencyMapGraph.this == graph && pos != null;
     }
@@ -280,8 +273,7 @@ public Vertex<V> opposite(Vertex<V> v, Edge<E> e)
     /** Returns the position of this edge within the graph's vertex list. */
     public Position<Edge<E>> getPosition() { return pos; }
 	
-	@Override
-	public Vertex<?>[] getEndPoints() {
+	public Vertex<V>[] getEndPoints() {
 		return endpoints;
 	}
 

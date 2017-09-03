@@ -64,7 +64,6 @@ public class Main {
 		*/
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		Graph<Integer, String> G1 = new AdjacencyListGraph<>(false);
 		Graph<Integer, String> G2 = new AdjacencyListGraph<>(true);

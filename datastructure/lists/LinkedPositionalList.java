@@ -26,25 +26,15 @@ public class LinkedPositionalList<E> implements PositionalList<E>{
 			return this.element;
 		}
 
-		public Node<E> getNext() {
-			return this.next;
-		}
+		public Node<E> getNext() {return this.next;}
 
-		public void setNext(Node<E> next) {
-			this.next = next;
-		}
+		public void setNext(Node<E> next) {this.next = next;}
 
-		public Node<E> getPrev() {
-			return this.prev;
-		}
+		public Node<E> getPrev() {return this.prev;}
 
-		public void setPrev(Node<E> prev) {
-			this.prev = prev;
-		}
+		public void setPrev(Node<E> prev) {this.prev = prev;}
 		
-		public void setElement(E element) {
-			this.element = element;
-		}
+		public void setElement(E element) {this.element = element;}
 		
 	}
 	

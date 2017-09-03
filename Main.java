@@ -11,6 +11,7 @@ public class Main {
 		AdjacencyListGraph<Integer, String> T = (AdjacencyListGraph<Integer, String>) G;
 		Vertex<Integer> v[] = new Vertex[6];
 		Edge<String> e[] = new Edge[10];
+		
 		for (int i = 0; i < v.length; i++) v[i] = T.insertVertex(i);
 		
 		e[0] = T.insertEdge(v[0], v[2], "a");

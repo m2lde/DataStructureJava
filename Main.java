@@ -70,7 +70,6 @@ public class Main {
 		
 		testGraph(G2);
 						
-		
 		/**
 		System.out.println("Vertices values.");
 		G1.vertices().forEach(action -> System.out.print(" " + action.getElement()));

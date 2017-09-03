@@ -251,13 +251,6 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		this.edgeList.remove(edge.getPosition());
 	}
 	
-	public void FuncTmp(Vertex<V> v) {
-		System.out.println("Vertex::: " + v.getElement());
-		for (Edge<E> edge : this.outgoingEdges(v)) 
-			System.out.println(edge.toString());
-		
-	}
-	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

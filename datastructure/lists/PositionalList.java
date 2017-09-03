@@ -4,7 +4,7 @@ package datastructure.lists;
  * @author mrl00
  * @param <E>
  */
-public interface PositionalList<E> extends Iterable<E>{
+public interface PositionalList<E> extends Iterable<E>, Cloneable {
     /**
      * 
      * @return number of elements in the list.
@@ -23,10 +23,15 @@ public interface PositionalList<E> extends Iterable<E>{
     Position<E> first();
     
     /**
-     * 
      * @return the last element of list.
      */
     Position<E> last();
+    
+    /**
+     * @param p
+     * @return
+     */
+    E get(Position<E> p);
     
     /**
      * 

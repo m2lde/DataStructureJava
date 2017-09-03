@@ -64,9 +64,8 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	@SuppressWarnings("hiding")
 	private class InnerEdge<E> implements Edge<E> {
 		private E element;
-		private Position<Edge<E>> position;
+		private Position<Edge<E>> position, start, end;
 		private Vertex<V>[] endPoints;
-		private boolean isDirected;
 		
 		@SuppressWarnings("unchecked")
 		public InnerEdge(Vertex<V> u, Vertex<V> v, E e) {
@@ -81,31 +80,38 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		
 		@Override
 		public E getElement() throws IllegalStateException {return this.element;}
-		
+				
 		@Override
-		public boolean isDirected() {return this.isDirected;}
-		
-		@Override
-		public Vertex<V>[] endPoints() {return this.endPoints;}
+		public Vertex<V>[] getEndPoints() {return this.endPoints;}
 		
 		@Override
 		public Position<Edge<E>> getPosition() {return this.position;}
 		
 		@Override
 		public void setPosition(Position<Edge<E>> p) {this.position = p;}
+		
+		public Position<Edge<E>> getStartPosition() {return this.start;}
+		
+		public Position<Edge<E>> getEndPosition() {return this.end;}
+
+		public void setStartPosition(Position<Edge<E>> start) {this.start = start;}
+
+		public void setEndPosition(Position<Edge<E>> end) {this.end = end;}
+		
 	}
 	
 	//Private utilities.
 	private InnerEdge<E> validate(Edge<E> e) {
+		if(e == null)
+			throw new IllegalArgumentException("Null edge or this edge does not exists.");
 		if(!(e instanceof InnerEdge)) 
-			throw new IllegalArgumentException("Invalid edge.");
+			throw new IllegalArgumentException("Invalid Edge.");
 		InnerEdge<E> edge = (InnerEdge<E>) e;
 		if(!edge.validate(this)) 
-			throw new IllegalArgumentException("Invalid edge.");
+			throw new IllegalArgumentException("Invalid Edge.");
 		return edge;
 	}
 	
-	@SuppressWarnings("unused")
 	private InnerVertex<V> validate(Vertex<V> v) {
 		if(!(v instanceof InnerVertex))
 			throw new IllegalArgumentException("Invalid vertex.");
@@ -118,23 +124,22 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	//Interface implementation.
 	@Override
 	public int numVertices() {return this.vertexList.size();}
-
+	
 	@Override
 	public int numEdges() {return this.edgeList.size();}
-
+	
 	@Override
 	public Iterable<Vertex<V>> vertices() {return this.vertexList;}
-
+	
 	@Override
 	public Iterable<Edge<E>> edges() {return this.edgeList;}
-
+	
 	@Override
 	public Edge<E> getEdge(Vertex<V> v, Vertex<V> w) throws IllegalArgumentException {
 		InnerVertex<V> v1 = validate(v), v2 = validate(w);
-		
 		for (Edge<E> e : v1.getOutgoingEdges()) {
 			InnerEdge<E> edge = validate(e);
-			Vertex<V>[] vertex = endVertices(edge);
+			Vertex<V>[] vertex =  edge.getEndPoints();
 			if(vertex[1] == v2 && this.isDirected) 
 				return edge;
 			if((vertex[1] == v2 || vertex[0] == v2) && !this.isDirected) 
@@ -145,14 +150,12 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 	
 	@Override
 	public Vertex<V>[] endVertices(Edge<E> e) {
-		InnerEdge<E> edge = validate(e);
-		return (Vertex<V>[]) edge.endPoints();
+		return (Vertex<V>[]) validate(e).getEndPoints();
 	}
-
+	
 	@Override
 	public Vertex<V> opposite(Vertex<V> v, Edge<E> e) throws IllegalArgumentException {
-		InnerEdge<E> edge = validate(e);
-		Vertex<V>[] endpoints = edge.endPoints();
+		Vertex<V>[] endpoints = validate(e).endPoints;
 		
 		if(endpoints[0] == v)
 			return endpoints[1];
@@ -161,13 +164,12 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		else
 			throw new IllegalArgumentException("This vertex is not incident to edge.");
 	}
-
+	
 	@Override
 	public int outDegree(Vertex<V> v) {
-		InnerVertex<V> vertex = validate(v);
-		return vertex.getOutgoingEdges().size();
+		return validate(v).getOutgoingEdges().size();
 	}
-
+	
 	@Override
 	public int inDegree(Vertex<V> v) {
 		if(!this.isDirected)
@@ -177,23 +179,21 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 			return vertex.getIncomingEdges().size();
 		}	
 	}
-
+	
 	@Override
 	public Iterable<Edge<E>> outgoingEdges(Vertex<V> v) {
-		InnerVertex<V> vertex = validate(v);
-		return vertex.getIncomingEdges();
+		return validate(v).getIncomingEdges();
 	}
-
+	
 	@Override
 	public Iterable<Edge<E>> incomingEdges(Vertex<V> v) {
 		if(!this.isDirected)
 			return this.outgoingEdges(v);
 		else {
-			InnerVertex<V> vertex = validate(v);
-			return vertex.getIncomingEdges();
+			return validate(v).getIncomingEdges();
 		}
 	}
-
+	
 	@Override
 	public Vertex<V> insertVertex(V x) {
 		InnerVertex<V> newVertex = new InnerVertex<>(x, this.isDirected); 
@@ -201,30 +201,40 @@ public class AdjacencyListGraph<V, E> implements Graph<V, E> {
 		return newVertex;
 	}
 	
-	//Link two vertex that exists in the graph.
 	@Override
 	public Edge<E> insertEdge(Vertex<V> u, Vertex<V> v, E e) throws IllegalArgumentException {
 		if(this.getEdge(u, v) == null) {
 			InnerVertex<V> orign = validate(u), dest = validate(v);
 			InnerEdge<E> newEdge = new InnerEdge<>(orign ,dest ,e);
 			newEdge.setPosition(this.edgeList.addLast(newEdge));
-			orign.getOutgoingEdges().addLast(newEdge);
-			if(orign != dest) dest.getIncomingEdges().addLast(newEdge);
+			newEdge.setStartPosition(orign.getOutgoingEdges().addLast(newEdge));
+			if(orign != dest) newEdge.setEndPosition(dest.getIncomingEdges().addLast(newEdge));;
 			return newEdge;
 		} else
 			throw new IllegalArgumentException("Edge from u to v exists.");
 	}
-
+	
 	@Override
 	public void removeVertex(Vertex<V> v) {
-		
+		InnerVertex<V> vertex = validate(v);
+		for (Edge<E> edge : vertex.outgoing)
+			removeEdge(edge);
+		for (Edge<E> edge : vertex.incoming)
+			removeEdge(edge);
+		this.vertexList.remove(vertex.getPosition());
 	}
-
+	
 	@Override
 	public void removeEdge(Edge<E> e) {
 		InnerEdge<E> edge = validate(e);
-		InnerVertex<V> v0 = validate(edge.endPoints[0]), v1 = validate(edge.endPoints[1]);
 		
+		InnerVertex<V> v0 = validate(edge.endPoints[0]), 
+					   v1 = validate(edge.endPoints[1]);
+		
+		v0.getOutgoingEdges().remove(edge.getStartPosition());
+		if(v0 != v1)v1.getIncomingEdges().remove(edge.getEndPosition());
+		
+		this.edgeList.remove(edge.getPosition());
 	}
 	
 	@Override

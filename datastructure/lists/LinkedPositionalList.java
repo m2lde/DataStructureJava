@@ -27,7 +27,7 @@ public class LinkedPositionalList<E> implements PositionalList<E>{
 		}
 
 		public Node<E> getNext() {
-			return next;
+			return this.next;
 		}
 
 		public void setNext(Node<E> next) {
@@ -35,7 +35,7 @@ public class LinkedPositionalList<E> implements PositionalList<E>{
 		}
 
 		public Node<E> getPrev() {
-			return prev;
+			return this.prev;
 		}
 
 		public void setPrev(Node<E> prev) {
@@ -156,16 +156,19 @@ public class LinkedPositionalList<E> implements PositionalList<E>{
 	public Position<E> last() {
 		return position(trailer.getPrev());
 	}
+	@Override
+	public E get(Position<E> p) {
+		return position(validate(p)).getElement();
+	}
 	
 	/**
 	 * @return the position imediatly after position p (or null if p is the first). 
 	 */
 	@Override
 	public Position<E> after(Position<E> p) throws IllegalArgumentException {
-		Node<E> node = validate(p);
-		return position(node.getNext());
+		return position(validate(p).getNext());
 	}
-
+	
 	@Override
 	public Position<E> before(Position<E> p) throws IllegalArgumentException {
 		Node<E> node = validate(p);

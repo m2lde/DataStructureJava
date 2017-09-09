@@ -6,6 +6,7 @@ package datastructure.lists;
  * @param <E>
  */
 public interface IndexList<E> extends Iterable<E>, Cloneable {
+	
     /**
      *  
      * @return the number of elements on list.
@@ -36,11 +37,11 @@ public interface IndexList<E> extends Iterable<E>, Cloneable {
     public E set(int index, E element) throws IndexOutOfBoundsException;
     
     /**
-     * @param indx
+     * @param index
      * @param element
      * @throws IndexOutOfBoundsException 
      */
-    public void add(int indx, E element) throws IndexOutOfBoundsException;
+    public void add(int index, E element) throws IndexOutOfBoundsException;
     
     /**
      *  

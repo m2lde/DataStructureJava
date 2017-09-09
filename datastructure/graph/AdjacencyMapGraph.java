@@ -228,7 +228,7 @@ private class InnerVertex<V> implements Vertex<V> {
     }
 
     /** Returns the element associated with the vertex. */
-    public V getElement() { return element; }
+    public V getElement() { return this.element; }
 
     /** Stores the position of this vertex within the graph's vertex list. */
     public void setPosition(Position<Vertex<V>> p) { pos = p; }
@@ -263,7 +263,7 @@ private class InnerEdge<E> implements Edge<E> {
     public E getElement() { return element; }
 
     /** Validates that this edge instance belongs to the given graph. */
-    public boolean validate(Graph<?,E> graph) {
+    public boolean validate(Graph<V,E> graph) {
       return AdjacencyMapGraph.this == graph && pos != null;
     }
 

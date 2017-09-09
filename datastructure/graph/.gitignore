@@ -22,3 +22,7 @@
 /AdjacencyListGraph$InnerEdge.class
 /AdjacencyListGraph$InnerVertex.class
 /AdjacencyListGraph.class
+/AdjacencyMatrixGraph.class
+/GraphTex.class
+/AdjacencyMatrixGraph$InnerVertex.class
+/AdjacencyMatrixGraph$InnerEdge.class

@@ -76,8 +76,11 @@ public class Main {
 
 
 		testGraph(G2);
-						
-		/**
+		Vertex<Integer>[] v = new Vertex[6];
+		
+		for (int i = 0; i < v.length; i++) v[i] = G1.insertVertex(i);
+		
+		
 		System.out.println("Vertices values.");
 		G1.vertices().forEach(action -> System.out.print(" " + action.getElement()));
 		System.out.println("\n");
@@ -105,6 +108,6 @@ public class Main {
 		System.out.println("Edges values.");
 		G1.edges().forEach(action -> System.out.print(" " + action.getElement()));
 		System.out.println("\n");
-		*/
+		
 	}
 }
